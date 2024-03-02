@@ -4292,6 +4292,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "collections",
+ "command_palette",
  "ctor",
  "editor",
  "env_logger",
