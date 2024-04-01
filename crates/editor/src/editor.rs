@@ -1249,6 +1249,8 @@ impl CompletionsMenu {
                             .color()
                             .map(|color| div().size_4().bg(color).rounded_sm());
 
+                        let completion_kind = completion_kind_icon(&completion.lsp_completion.kind);
+
                         div().min_w(px(220.)).max_w(px(540.)).child(
                             ListItem::new(mat.candidate_id)
                                 .inset(true)
@@ -1265,8 +1267,18 @@ impl CompletionsMenu {
                                     }
                                 }))
                                 .start_slot::<Div>(color_swatch)
-                                .child(h_flex().overflow_hidden().child(completion_label))
-                                .end_slot::<Label>(documentation_label),
+                                .child(
+                                    h_flex()
+                                        .overflow_hidden()
+                                        .child(
+                                            div()
+                                                .child(SharedString::from(completion_kind.icon))
+                                                .font_weight(FontWeight::BOLD)
+                                                .text_xl()
+                                                .pr_2(),
+                                        )
+                                        .child(completion_label),
+                                ).end_slot::<Label>(documentation_label),
                         )
                     })
                     .collect()
@@ -1508,6 +1520,123 @@ impl CodeActionsItem {
             Self::CodeAction { action, .. } => action.lsp_action.title.clone(),
             Self::Task(_, task) => task.resolved_label.clone(),
         }
+    }
+}
+
+struct IconInfo {
+    icon: String,
+    #[allow(unused)]
+    color: u32,
+}
+
+// symbol refer to https://github.com/TorchedSammy/lite-xl-lspkind/tree/master?tab=readme-ov-file#setup
+// https://github.com/microsoft/vscode/blob/f8ee0378c031513bb76376103e764cb4255a65e7/src/vs/editor/contrib/symbolIcons/browser/symbolIcons.ts#L10-L240
+fn completion_kind_icon(completion_kind: &Option<CompletionItemKind>) -> IconInfo {
+    match completion_kind {
+        Some(CompletionItemKind::REFERENCE) => IconInfo {
+            icon: "".to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::METHOD) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xb180d7,
+        },
+        Some(CompletionItemKind::FUNCTION) => IconInfo {
+            icon: '󰊕'.to_string(),
+            color: 0x75beff, // 0xb180d7,
+        },
+        Some(CompletionItemKind::CONSTRUCTOR) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xb180d7,
+        },
+        Some(CompletionItemKind::FIELD) => IconInfo {
+            icon: ''.to_string(),
+            color: 0x75beff,
+        },
+        Some(CompletionItemKind::VARIABLE) => IconInfo {
+            icon: ''.to_string(),
+            color: 0x75beff,
+        },
+        Some(CompletionItemKind::CLASS) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xee9d28,
+        },
+        Some(CompletionItemKind::INTERFACE) => IconInfo {
+            icon: ''.to_string(),
+            color: 0x75beff,
+        },
+        Some(CompletionItemKind::MODULE) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::PROPERTY) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::UNIT) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::VALUE) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xdeadbeef,
+        },
+        Some(CompletionItemKind::ENUM) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xdeadbeef,
+        },
+        Some(CompletionItemKind::KEYWORD) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::SNIPPET) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::COLOR) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xdeadbeef, // 0xcccccc
+        },
+        Some(CompletionItemKind::FILE) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::FOLDER) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::ENUM_MEMBER) => IconInfo {
+            icon: ''.to_string(),
+            color: 0x75beff,
+        },
+        Some(CompletionItemKind::CONSTANT) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xdeadbeef, // 0xcccccc
+        },
+        Some(CompletionItemKind::STRUCT) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::EVENT) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xee9d28,
+        },
+        Some(CompletionItemKind::OPERATOR) => IconInfo {
+            icon: "󰆕".to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::TYPE_PARAMETER) => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
+        Some(CompletionItemKind::TEXT) => IconInfo {
+            icon: "󰉿".to_string(),
+            color: 0xcccccc,
+        },
+        _ => IconInfo {
+            icon: ''.to_string(),
+            color: 0xcccccc,
+        },
     }
 }
 
