@@ -231,8 +231,8 @@ function sign_app_binaries() {
         cp -R target/${target_dir}/cli "${app_path}/Contents/MacOS/"
     fi
 
-    echo "Downloading git binary"
-    download_git "${architecture}" "${app_path}/Contents/MacOS/git"
+    # echo "Downloading git binary"
+    # download_git "${architecture}" "${app_path}/Contents/MacOS/git"
 
     # Note: The app identifier for our development builds is the same as the app identifier for nightly.
     cp crates/zed/contents/$channel/embedded.provisionprofile "${app_path}/Contents/"
