@@ -1634,7 +1634,7 @@ fn completion_kind_icon(completion_kind: &Option<CompletionItemKind>) -> IconInf
             color: 0xcccccc,
         },
         _ => IconInfo {
-            icon: ''.to_string(),
+            icon: ''.to_string(),
             color: 0xcccccc,
         },
     }
