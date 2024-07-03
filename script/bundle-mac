@@ -11,6 +11,7 @@ local_only=false
 local_install=false
 bundle_name=""
 can_code_sign=false
+LIBGIT2_NO_VENDOR=1
 
 # This must match the team in the provisioning profile.
 IDENTITY="Zed Industries, Inc."
@@ -303,7 +304,7 @@ function sign_app_binaries() {
         dmg_target_directory="target/${architecture_dir}/${target_dir}"
         dmg_source_directory="${dmg_target_directory}/dmg"
         dmg_file_path="${dmg_target_directory}/Zed.dmg"
-        xcode_bin_dir_path="$(xcode-select -p)/usr/bin"
+        xcode_bin_dir_path="/Applications/Xcode-beta.app/Contents/Developer/usr/bin"
 
         rm -rf ${dmg_source_directory}
         mkdir -p ${dmg_source_directory}
