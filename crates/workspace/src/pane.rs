@@ -12,6 +12,7 @@ use crate::{
 };
 use anyhow::Result;
 use collections::{BTreeSet, HashMap, HashSet, VecDeque};
+use file_icons::FileIcons;
 use futures::{stream::FuturesUnordered, StreamExt};
 use git::repository::GitFileStatus;
 use gpui::{
@@ -1864,12 +1865,22 @@ impl Pane {
 
         let icon = item.tab_icon(cx);
         let close_side = &ItemSettings::get_global(cx).close_position;
+        #[allow(unused_variables)]
         let indicator = render_item_indicator(item.boxed_clone(), cx);
         let item_id = item.item_id();
         let is_first_item = ix == 0;
         let is_last_item = ix == self.items.len() - 1;
         let is_pinned = self.is_tab_pinned(ix);
         let position_relative_to_active_item = ix.cmp(&self.active_item_index);
+
+        #[allow(unused_variables)]
+        let file_icon = ItemSettings::get_global(cx)
+            .file_icons
+            .then(|| {
+                item.project_path(cx)
+                    .and_then(|path| FileIcons::get_icon(path.path.as_ref(), cx))
+            })
+            .flatten();
 
         let tab = Tab::new(ix)
             .position(if is_first_item {
