@@ -10,6 +10,7 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_json::Value;
 use serde_repr::{Deserialize_repr, Serialize_repr};
+use std::{sync::Arc, path::PathBuf};
 
 use crate::{StatusColorsRefinement, ThemeColorsRefinement};
 
@@ -171,6 +172,10 @@ pub struct ThemeColorsContent {
     /// Background Color. Used for the app background and blank panels or windows.
     #[serde(rename = "background")]
     pub background: Option<String>,
+
+    // Background image. Used for displaying a picture behind the workspace.
+    #[serde(rename = "background.image_file")]
+    pub background_image_file: Option<String>,
 
     /// Background Color. Used for the background of an element that should have a different background than the surface it's on.
     ///
@@ -586,6 +591,10 @@ impl ThemeColorsContent {
                 .background
                 .as_ref()
                 .and_then(|color| try_parse_color(color).ok()),
+            background_image_file: self
+                .background_image_file
+                .as_ref()
+                .map(|image_file| Arc::new(PathBuf::from(image_file))),
             element_background: self
                 .element_background
                 .as_ref()
