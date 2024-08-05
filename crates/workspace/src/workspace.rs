@@ -38,7 +38,8 @@ use gpui::{
     ResizeEdge, Size, Stateful, Subscription, Task, Tiling, View, WeakView, WindowBounds,
     WindowHandle, WindowId, WindowOptions,
 };
-pub use item::{
+use gpui::{img, ImageSource};
+use item::{
     FollowableItem, FollowableItemHandle, Item, ItemHandle, ItemSettings, PreviewTabsSettings,
     ProjectItem, SerializableItem, SerializableItemHandle, WeakItemHandle,
 };
@@ -4822,7 +4823,20 @@ impl Render for Workspace {
                                     DockPosition::Right,
                                     &self.right_dock,
                                     cx,
-                                )),
+                                ))
+                                // 传递图片请记得透明化 8%
+                                // 因为 element 中没有 .opacity 属性
+                                .when_some(
+                                    colors.background_image_file.as_ref(),
+                                    |this, image_file| {
+                                        this.child(
+                                            img(ImageSource::File(image_file.clone()))
+                                                .absolute()
+                                                .object_fit(gpui::ObjectFit::Cover)
+                                                .size_full(),
+                                        )
+                                    },
+                                ),
                         )
                         .children(self.zoomed.as_ref().and_then(|view| {
                             let zoomed_view = view.upgrade()?;
