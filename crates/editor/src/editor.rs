@@ -1273,12 +1273,13 @@ impl CompletionsMenu {
                                         .child(
                                             div()
                                                 .child(SharedString::from(completion_kind.icon))
-                                                .font_weight(FontWeight::BOLD)
-                                                .text_xl()
-                                                .pr_2(),
+                                                .text_size(style.text.font_size)
+                                                .font_weight(FontWeight::BLACK),
                                         )
+                                        .child(div().pr_2())
                                         .child(completion_label),
-                                ).end_slot::<Label>(documentation_label),
+                                )
+                                .end_slot::<Label>(documentation_label),
                         )
                     })
                     .collect()
