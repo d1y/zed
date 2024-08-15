@@ -43,6 +43,7 @@ tree-sitter-css.workspace = true
 tree-sitter-go.workspace = true
 tree-sitter-go-mod.workspace = true
 tree-sitter-gowork.workspace = true
+tree-sitter-comment.workspace = true
 tree-sitter-jsdoc.workspace = true
 tree-sitter-json.workspace = true
 tree-sitter-md.workspace = true

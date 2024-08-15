@@ -11,3 +11,6 @@
       (interpreted_string_literal)
     ] @content
     (#set! "language" "regex")))
+
+((comment) @content
+  (#set! "language" "comment"))

@@ -55,6 +55,7 @@ pub fn init(
         ("tsx", tree_sitter_typescript::language_tsx()),
         ("typescript", tree_sitter_typescript::language_typescript()),
         ("yaml", tree_sitter_yaml::language()),
+        ("comment", tree_sitter_comment::language()),
     ]);
 
     macro_rules! language {
@@ -116,6 +117,7 @@ pub fn init(
         vec![Arc::new(go::GoLspAdapter)],
         GoContextProvider
     );
+    language!("comment");
 
     language!(
         "json",

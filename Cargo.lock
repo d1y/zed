@@ -6288,6 +6288,7 @@ dependencies = [
  "tree-sitter",
  "tree-sitter-bash",
  "tree-sitter-c",
+ "tree-sitter-comment",
  "tree-sitter-cpp",
  "tree-sitter-css",
  "tree-sitter-go",
@@ -11967,6 +11968,15 @@ name = "tree-sitter-c"
 version = "0.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f956d5351d62652864a4ff3ae861747e7a1940dc96c9998ae400ac0d3ce30427"
+dependencies = [
+ "cc",
+ "tree-sitter",
+]
+
+[[package]]
+name = "tree-sitter-comment"
+version = "0.1.0"
+source = "git+https://github.com/d1ylab/tree-sitter-comment?rev=78485bdc6d9a19eb37e74c4ef7a970f58c0c01b9#78485bdc6d9a19eb37e74c4ef7a970f58c0c01b9"
 dependencies = [
  "cc",
  "tree-sitter",

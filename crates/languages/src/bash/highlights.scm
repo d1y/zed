@@ -57,3 +57,6 @@
   (command (_) @constant)
   (#match? @constant "^-")
 )
+
+((comment) @content
+  (#set! "language" "comment"))
