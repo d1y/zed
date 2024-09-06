@@ -56,7 +56,7 @@ use text::{OffsetRangeExt, ToPoint as _};
 use theme::ThemeSettings;
 use ui::{prelude::*, CheckboxWithLabel, IconButtonShape, Popover, Tooltip};
 use util::{RangeExt, ResultExt};
-use workspace::{notifications::NotificationId, ItemHandle, Toast, Workspace};
+use workspace::{notifications::NotificationId, item::ItemHandle, Toast, Workspace};
 
 pub fn init(
     fs: Arc<dyn Fs>,

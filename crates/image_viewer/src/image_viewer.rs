@@ -12,8 +12,8 @@ use project::{Project, ProjectEntryId, ProjectPath};
 use settings::Settings;
 use std::{ffi::OsStr, path::PathBuf};
 use workspace::{
-    item::{Item, ProjectItem, SerializableItem, TabContentParams},
-    ItemId, ItemSettings, Pane, Workspace, WorkspaceId,
+    item::{Item, ProjectItem, SerializableItem, TabContentParams, ItemSettings},
+    ItemId, Pane, Workspace, WorkspaceId,
 };
 
 const IMAGE_VIEWER_KIND: &str = "ImageView";

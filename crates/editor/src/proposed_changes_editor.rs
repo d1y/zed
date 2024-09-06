@@ -10,7 +10,7 @@ use std::{any::TypeId, ops::Range, rc::Rc, time::Duration};
 use text::ToOffset;
 use ui::prelude::*;
 use workspace::{
-    searchable::SearchableItemHandle, Item, ItemHandle as _, ToolbarItemEvent, ToolbarItemLocation,
+    searchable::SearchableItemHandle, item::Item, item::ItemHandle, ToolbarItemEvent, ToolbarItemLocation,
     ToolbarItemView, Workspace,
 };
 
@@ -350,7 +350,7 @@ impl EventEmitter<ToolbarItemEvent> for ProposedChangesEditorToolbar {}
 impl ToolbarItemView for ProposedChangesEditorToolbar {
     fn set_active_pane_item(
         &mut self,
-        active_pane_item: Option<&dyn workspace::ItemHandle>,
+        active_pane_item: Option<&dyn ItemHandle>,
         _cx: &mut ViewContext<Self>,
     ) -> workspace::ToolbarItemLocation {
         self.current_editor =
