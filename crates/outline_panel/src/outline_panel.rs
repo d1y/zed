@@ -45,14 +45,14 @@ use theme::SyntaxTheme;
 use util::{debug_panic, RangeExt, ResultExt, TryFutureExt};
 use workspace::{
     dock::{DockPosition, Panel, PanelEvent},
-    item::ItemHandle,
+    item::{ItemHandle, WeakItemHandle},
     searchable::{SearchEvent, SearchableItem},
     ui::{
         h_flex, v_flex, ActiveTheme, ButtonCommon, Clickable, Color, ContextMenu, FluentBuilder,
         HighlightedLabel, Icon, IconButton, IconButtonShape, IconName, IconSize, Label,
         LabelCommon, ListItem, Selectable, Spacing, StyledExt, StyledTypography, Tooltip,
     },
-    OpenInTerminal, WeakItemHandle, Workspace,
+    OpenInTerminal, Workspace,
 };
 use worktree::{Entry, ProjectEntryId, WorktreeId};
 
