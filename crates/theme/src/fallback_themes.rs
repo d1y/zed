@@ -53,6 +53,7 @@ pub(crate) fn zed_default_dark() -> Theme {
                 elevated_surface_background: elevated_surface,
                 surface_background: bg,
                 background: bg,
+                background_image_file: None,
                 element_background: hsla(223.0 / 360., 13. / 100., 21. / 100., 1.0),
                 element_hover: hsla(225.0 / 360., 11.8 / 100., 26.7 / 100., 1.0),
                 element_active: hsla(220.0 / 360., 11.8 / 100., 20.0 / 100., 1.0),

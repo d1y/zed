@@ -2,7 +2,7 @@
 
 use gpui::{Hsla, SharedString, WindowBackgroundAppearance, WindowContext};
 use refineable::Refineable;
-use std::sync::Arc;
+use std::{path::PathBuf, sync::Arc};
 use strum::{AsRefStr, EnumIter, IntoEnumIterator};
 
 use crate::{
@@ -31,6 +31,8 @@ pub struct ThemeColors {
     pub surface_background: Hsla,
     /// Background Color. Used for the app background and blank panels or windows.
     pub background: Hsla,
+    /// Background image. Used for displaying a picture behind the workspace.
+    pub background_image_file: Option<Arc<PathBuf>>,
     /// Background Color. Used for the background of an element that should have a different background than the surface it's on.
     ///
     /// Elements might include: Buttons, Inputs, Checkboxes, Radio Buttons...
