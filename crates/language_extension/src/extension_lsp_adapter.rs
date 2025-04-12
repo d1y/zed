@@ -156,7 +156,22 @@ impl LspAdapter for ExtensionLspAdapter {
 
             Ok(LanguageServerBinary {
                 path,
-                arguments: command.args.into_iter().map(|arg| arg.into()).collect(),
+                arguments: command
+                    .args
+                    .into_iter()
+                    .map(|arg| {
+                        #[cfg(windows)]
+                        {
+                            use regex::Regex;
+                            let pattern = r"^/[A-Z]:\\";
+                            let regex = Regex::new(pattern).unwrap();
+                            if regex.is_match(&arg) {
+                                return arg.trim_start_matches('/').into();
+                            }
+                        }
+                        return arg.into();
+                    })
+                    .collect(),
                 env: Some(command.env.into_iter().collect()),
             })
         }
