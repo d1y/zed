@@ -5,7 +5,7 @@ on:
     # Fire every day at 23:20 UTC (Beijing time 7:20)
     - cron: "20 23 * * *"
   push:
-    branches: [ "nightly" ]
+    branches: [ "nightly", "unstable" ]
 
 jobs:
   bundle-mac:
