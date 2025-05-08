@@ -6,7 +6,13 @@ on:
     - cron: "20 23 * * *"
   push:
     branches: [ "nightly", "unstable" ]
-
+    
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: 0
+  RUST_BACKTRACE: 1
+  CARGO_TARGET_DIR: debug
+  
 jobs:
   bundle-mac:
     timeout-minutes: 60
