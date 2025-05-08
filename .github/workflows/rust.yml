@@ -1,0 +1,57 @@
+name: Release Nightly
+
+on:
+  schedule:
+    # Fire every day at 23:20 UTC (Beijing time 7:20)
+    - cron: "20 23 * * *"
+  push:
+    branches: [ "nightly" ]
+
+jobs:
+  bundle-mac:
+    timeout-minutes: 60
+    name: Create a macOS bundle
+    runs-on: macos-latest
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "18"
+
+      - name: Checkout repo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          clean: false
+
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Set release channel to nightly
+        run: |
+          set -eu
+          version=$(git rev-parse --short HEAD)
+          echo "Publishing version: ${version} on release channel nightly"
+          echo "nightly" > crates/zed/RELEASE_CHANNEL
+
+      - name: Create macOS app bundle
+        run: script/bundle-mac -l
+
+  update-nightly-tag:
+    name: Update nightly tag
+    runs-on: ubuntu-latest
+    needs:
+      - bundle-mac
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Update nightly tag
+        run: |
+          if [ "$(git rev-parse nightly)" = "$(git rev-parse HEAD)" ]; then
+            echo "Nightly tag already points to current commit. Skipping tagging."
+            exit 0
+          fi
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git tag -f nightly
+          git push origin nightly --force
