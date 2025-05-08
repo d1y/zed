@@ -3,6 +3,7 @@ name: Release Nightly
 on:
   schedule:
     # Fire every day at 23:20 UTC (Beijing time 7:20)
+    # test
     - cron: "20 23 * * *"
   push:
     branches:
