@@ -10,6 +10,8 @@ use crate::{
     SystemColors,
 };
 
+use std::path::PathBuf;
+
 #[derive(Refineable, Clone, Debug, PartialEq)]
 #[refineable(Debug, serde::Deserialize)]
 pub struct ThemeColors {
@@ -31,6 +33,7 @@ pub struct ThemeColors {
     pub surface_background: Hsla,
     /// Background Color. Used for the app background and blank panels or windows.
     pub background: Hsla,
+    pub background_image_file: Option<Arc<PathBuf>>,
     /// Background Color. Used for the background of an element that should have a different background than the surface it's on.
     ///
     /// Elements might include: Buttons, Inputs, Checkboxes, Radio Buttons...

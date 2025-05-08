@@ -6098,7 +6098,19 @@ impl Render for Workspace {
                                                 &self.right_dock,
                                                 window,
                                                 cx,
-                                            )),
+                                            ))
+                                            .when_some(
+                                                colors.background_image_file.as_ref(),
+                                                |this, image_file| {
+                                                    use gpui::img;
+                                                    this.child(
+                                                        img(image_file.as_ref().clone())
+                                                            .absolute()
+                                                            .object_fit(gpui::ObjectFit::Cover)
+                                                            .size_full(),
+                                                    )
+                                                },
+                                            ),
                                     }
                                 })
                                 .children(self.zoomed.as_ref().and_then(|view| {

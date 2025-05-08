@@ -110,6 +110,8 @@ impl ThemeStyleContent {
 
     /// Returns the syntax style overrides in the [`ThemeContent`].
     pub fn syntax_overrides(&self) -> Vec<(String, HighlightStyle)> {
+        use std::path::PathBuf;
+        use std::sync::Arc;
         self.syntax
             .iter()
             .map(|(key, style)| {
@@ -124,6 +126,10 @@ impl ThemeStyleContent {
                             .background_color
                             .as_ref()
                             .and_then(|color| try_parse_color(color).ok()),
+                        background_image_file: self
+                                        .background_image_file
+                                        .as_ref()
+                                        .map(|image_file| Arc::new(PathBuf::from(image_file))),
                         font_style: style.font_style.map(FontStyle::from),
                         font_weight: style.font_weight.map(FontWeight::from),
                         ..Default::default()
@@ -172,6 +178,8 @@ pub struct ThemeColorsContent {
     /// Background Color. Used for the app background and blank panels or windows.
     #[serde(rename = "background")]
     pub background: Option<String>,
+    #[serde(rename = "background.image_file")]
+    pub background_image_file: Option<String>,
 
     /// Background Color. Used for the background of an element that should have a different background than the surface it's on.
     ///
